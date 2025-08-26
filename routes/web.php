@@ -1,28 +1,31 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PdfController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
 */
 
 Route::get('/', function () {
-    return view('dashboard');
-})->name('dashboard');
-
-// Routes pour la génération de PDF
-Route::prefix('pdf')->name('pdf.')->group(function () {
-    Route::get('client-report/{client}', [PdfController::class, 'generateClientReport'])
-         ->name('client-report');
-    Route::get('equipment-list/{client}', [PdfController::class, 'generateEquipmentList'])
-         ->name('equipment-list');
-    Route::get('global-report', [PdfController::class, 'generateGlobalReport'])
-         ->name('global-report');
+    return view('welcome');
 });
 
-Route::fallback(function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__.'/auth.php';

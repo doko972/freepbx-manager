@@ -659,10 +659,10 @@
             </div>
         </div>
         ${hasChildren ? `
-                <div class="node-children ${!isExpanded ? 'hidden' : ''}">
-                    ${node.children.map(renderNode).join('')}
-                </div>
-            ` : ''}
+                    <div class="node-children ${!isExpanded ? 'hidden' : ''}">
+                        ${node.children.map(renderNode).join('')}
+                    </div>
+                ` : ''}
     </div>
 `;
         }
@@ -902,10 +902,10 @@
             <label><i class="fas fa-desktop"></i> Type d'équipement</label>
             <div class="equipment-types">
                 ${equipmentTypes.map(eq => `
-                                                    <div class="equipment-type-btn" onclick="selectEquipmentType('${eq.name}')">
-                                                        <i class="${eq.faIcon}"></i> ${eq.name}
-                                                    </div>
-                                                `).join('')}
+                                                        <div class="equipment-type-btn" onclick="selectEquipmentType('${eq.name}')">
+                                                            <i class="${eq.faIcon}"></i> ${eq.name}
+                                                        </div>
+                                                    `).join('')}
             </div>
             <input type="text" id="customEquipment" placeholder="Ou équipement personnalisé...">
         </div>
@@ -1182,11 +1182,11 @@
             <label><i class="fas fa-desktop"></i> Type d'équipement</label>
             <div class="equipment-types">
                 ${equipmentTypes.map(eq => `
-                                    <div class="equipment-type-btn ${node.equipmentType === eq.name ? 'selected' : ''}" 
-                                         onclick="selectEquipmentType('${eq.name}')">
-                                        <i class="${eq.faIcon}"></i> ${eq.name}
-                                    </div>
-                                `).join('')}
+                                        <div class="equipment-type-btn ${node.equipmentType === eq.name ? 'selected' : ''}" 
+                                             onclick="selectEquipmentType('${eq.name}')">
+                                            <i class="${eq.faIcon}"></i> ${eq.name}
+                                        </div>
+                                    `).join('')}
             </div>
             <input type="text" id="customEquipment" placeholder="Ou équipement personnalisé..." 
                    value="${!equipmentTypes.find(eq => eq.name === node.equipmentType) ? node.equipmentType : ''}">

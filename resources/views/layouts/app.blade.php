@@ -15,6 +15,7 @@
 </head>
 
 <body>
+
     <header class="main-header">
         <div class="header-top">
             <div class="container">
@@ -37,14 +38,29 @@
                     </div>
                 </div>
 
-                {{-- <div class="header-actions">
+                <div class="header-actions">
                     <div class="user-profile">
                         <div class="user-avatar">
                             <i class="fas fa-user"></i>
                         </div>
-                        <span>Administrateur</span>
+                        <div class="user-info">
+                            <span>{{ Auth::user()->name }}</span>
+                            @if (Auth::user()->role === 'admin')
+                                <small style="color: #ffc107;"><i class="fas fa-crown"></i> Administrateur</small>
+                            @else
+                                <small>Utilisateur</small>
+                            @endif
+                        </div>
+                        <div class="user-menu">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
     </header>
