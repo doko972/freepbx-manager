@@ -1,0 +1,32 @@
+.breadcrumb-nav {
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+}
+
+.breadcrumb-nav .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    color: var(--medium-gray);
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--primary-dark);
+}

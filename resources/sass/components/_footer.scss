@@ -1,0 +1,200 @@
+.footer-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 15px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.footer-logo:hover {
+    opacity: 1;
+}
+
+.main-footer {
+    background: linear-gradient(135deg, var(--dark-color) 0%, #34495e 100%);
+    color: white;
+    margin-top: 60px;
+    position: relative;
+}
+
+.footer-main {
+    padding: 50px 0 30px;
+}
+
+.footer-main .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+}
+
+.footer-section h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+}
+
+.footer-section p,
+.footer-section a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: var(--accent-color);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-bottom .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9em;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+    background: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 0.95em;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.footer-link:hover::before {
+    left: 100%;
+}
+
+.footer-link:hover {
+    color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(8px);
+    box-shadow: 0 4px 12px rgba(0, 212, 170, 0.2);
+}
+
+/* Icône externe */
+.footer-link .external-icon {
+    font-size: 0.8em;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover .external-icon {
+    opacity: 1;
+    transform: translateX(3px) translateY(-2px);
+}
+
+/* Variantes de couleurs */
+.footer-link.primary:hover {
+    color: var(--primary-light);
+    box-shadow: 0 4px 12px rgba(29, 70, 239, 0.2);
+}
+
+.footer-link.success:hover {
+    color: var(--success-color);
+    box-shadow: 0 4px 12px rgba(46, 213, 115, 0.2);
+}
+
+.footer-link.warning:hover {
+    color: var(--warning-color);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+}
+
+/* Version avec badge */
+.footer-link.with-badge {
+    position: relative;
+}
+
+.footer-link .badge {
+    background: var(--accent-color);
+    color: white;
+    font-size: 0.7em;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+/* Version avec bordure */
+.footer-link.bordered {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 8px;
+}
+
+.footer-link.bordered:hover {
+    border-color: var(--accent-color);
+    background: rgba(0, 212, 170, 0.1);
+}
+
+/* Version bouton */
+.footer-link.button-style {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85em;
+}
+
+.footer-link.button-style:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+}

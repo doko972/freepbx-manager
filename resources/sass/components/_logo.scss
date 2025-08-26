@@ -1,0 +1,59 @@
+.logo-container {
+            width: 50%;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            padding: 8px;
+            overflow: hidden;
+        }
+
+        .company-logo {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Ajustement du texte logo */
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: -5px;
+            color: white;
+        }
+
+        .logo-subtitle {
+            font-size: 0.85em;
+            opacity: 0.85;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Version responsive du logo */
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 60px;
+                height: 45px;
+            }
+
+            .logo-title {
+                font-size: 1.4em;
+            }
+
+            .logo-subtitle {
+                font-size: 0.75em;
+            }
+        }

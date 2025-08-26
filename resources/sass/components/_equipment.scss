@@ -1,0 +1,75 @@
+.equipment-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.equipment-type-btn {
+    background: white;
+    border: 2px solid var(--border-color);
+    padding: 18px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-weight: 500;
+    font-size: 0.95em;
+    color: var(--dark-color);
+}
+
+.equipment-type-btn:hover,
+.equipment-type-btn.selected {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(29, 70, 239, 0.3);
+}
+
+.extension-preview {
+    background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+    border: 2px solid var(--success-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.input-helper {
+    font-size: 0.85em;
+    color: var(--medium-gray);
+    margin-top: 6px;
+    font-style: italic;
+}
+
+/* Badge de type de nœud */
+.node-type-badge {
+    background: var(--primary-color);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    margin-left: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.company-main .node-type-badge {
+    background: var(--primary-color);
+}
+
+.company-sub .node-type-badge {
+    background: var(--accent-color);
+}
+
+.phone-number .node-type-badge {
+    background: var(--warning-color);
+}
+
+.equipment .node-type-badge {
+    background: var(--success-color);
+}

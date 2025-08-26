@@ -1,0 +1,20 @@
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    min-height: calc(100vh - 200px);
+}
+
+.content-wrapper {
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.content-header {
+    background: linear-gradient(135deg, var(--light-gray) 0%, white 100%);
+    padding: 30px 40px;
+    border-bottom: 1px solid var(--border-color);
+}

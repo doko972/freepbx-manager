@@ -1,0 +1,44 @@
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--primary-color);
+    display: block;
+    font-family: 'Poppins', sans-serif;
+}
+
+.stat-label {
+    font-size: 0.85em;
+    color: var(--medium-gray);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.stats {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 25px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.stats .stat-item h4 {
+    font-size: 2.5em;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+}
+
+.stats .stat-item p {
+    font-size: 1.1em;
+    opacity: 0.9;
+    font-weight: 500;
+}

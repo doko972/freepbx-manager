@@ -1,0 +1,74 @@
+.tree-container {
+    background: var(--light-gray);
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid var(--border-color);
+}
+
+.tree {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+}
+
+.tree-node {
+    margin: 15px 0;
+    position: relative;
+    animation: slideInLeft 0.4s ease;
+}
+// Affichage horizontal pour les filiales d'une société principale
+.company-main > .node-children {
+  display: flex;
+  gap: 15px; // Réduit de 20px à 15px
+  flex-wrap: wrap;
+  margin-left: 30px;
+  border-left: none;
+  padding-left: 0;
+  
+  // Chaque filiale prend une largeur adaptable
+  > .tree-node.company-sub {
+    flex: 1;
+    min-width: 250px; // Réduit de 300px à 250px
+    max-width: 320px; // Réduit de 400px à 320px
+    
+    // Sur des écrans larges, permettre plus par ligne
+    @media (min-width: 1400px) {
+      min-width: 280px;
+      max-width: 350px;
+    }
+    
+    // Remettre la ligne verticale pour les enfants de la filiale
+    .node-children {
+      margin-left: 15px; // Réduit de 20px à 15px
+      border-left: 2px dashed #ddd;
+      padding-left: 12px; // Réduit de 15px à 12px
+      display: block;
+    }
+  }
+}
+
+// Sur écrans moyens (tablettes)
+@media (max-width: 1200px) {
+  .company-main > .node-children {
+    gap: 12px;
+    
+    > .tree-node.company-sub {
+      min-width: 220px;
+      max-width: 280px;
+    }
+  }
+}
+
+// Sur mobile, repasser en vertical
+@media (max-width: 768px) {
+  .company-main > .node-children {
+    flex-direction: column;
+    
+    > .tree-node.company-sub {
+      flex: none;
+      min-width: auto;
+      max-width: none;
+    }
+  }
+}
