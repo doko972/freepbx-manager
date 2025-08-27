@@ -111,6 +111,10 @@
     </div>
 @endsection
 @section('scripts')
+<script>
+console.log('User connecté :', '{{ Auth::user()->name }}');
+console.log('User ID :', '{{ Auth::id() }}');
+</script>
     <script>
         axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute(
             'content');

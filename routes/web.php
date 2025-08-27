@@ -21,6 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/pdf/equipment-list/{clientId}', [PdfController::class, 'generateEquipmentList'])->name('pdf.equipment-list');
 });
 
+Route::get('/test-log', function() {
+    logger('TEST LOG FONCTIONNE');
+    return 'Test terminé - vérifiez les logs';
+});
+
 // Routes légales
 Route::get('/terms', function () {
     return view('auth.terms');

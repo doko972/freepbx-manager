@@ -15,6 +15,7 @@ class PdfController extends Controller
      */
     public function generateClientReport($clientId)
     {
+
         // Récupérer le client avec ses relations
         $client = Client::with([
             'companies.subsidiaries.phoneNumbers.equipment',
