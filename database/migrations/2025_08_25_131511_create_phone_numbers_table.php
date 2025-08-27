@@ -15,12 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('number');
-            $table->string('type')->default('landline'); // landline, mobile, toll-free, etc.
+            $table->string('type')->default('landline');
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             
-            // Index pour performance
             $table->index(['company_id', 'is_active']);
             $table->index('number');
         });

@@ -15,19 +15,18 @@ class PdfController extends Controller
      */
     public function generateClientReport($clientId)
     {
-        // ÉTAPE 1: Récupérer le client avec ses relations
+        // Récupérer le client avec ses relations
         $client = Client::with([
             'companies.subsidiaries.phoneNumbers.equipment',
             'companies.phoneNumbers.equipment'
         ])->findOrFail($clientId);
 
-        // ÉTAPE 2: Calculer les totaux
+        // Calculer les totaux
         $totalEquipment = 0;
         $totalExtensions = 0;
         $totalPhoneNumbers = 0;
 
         foreach ($client->companies as $company) {
-            // Compter les numéros de la société principale
             $totalPhoneNumbers += $company->phoneNumbers->count();
             
             foreach ($company->phoneNumbers as $phoneNumber) {
@@ -54,7 +53,7 @@ class PdfController extends Controller
             }
         }
 
-        // ÉTAPE 3: Préparer les données pour la vue
+        // Préparer les données pour la views
         $data = [
             'client' => $client,
             'total_equipment_count' => $totalEquipment,
@@ -64,7 +63,7 @@ class PdfController extends Controller
             'generated_at' => now()->format('d/m/Y H:i'),
         ];
 
-        // ÉTAPE 4: Générer le PDF
+        // Générer le PDF
         $pdf = Pdf::loadView('pdf.client-report', $data);
         $pdf->setPaper('A4', 'portrait');
 
@@ -92,12 +91,12 @@ class PdfController extends Controller
 
         $data = [
             'client' => $client,
-            'equipment' => $allEquipment->sortBy('equipment.extension'), // Correction du tri
+            'equipment' => $allEquipment->sortBy('equipment.extension'),
             'generated_at' => now()->format('d/m/Y H:i'),
         ];
 
         $pdf = Pdf::loadView('pdf.equipment-list', $data);
-        $pdf->setPaper('A4', 'landscape'); // Paysage pour plus d'espace
+        $pdf->setPaper('A4', 'landscape');
 
         $filename = 'equipements-' . Str::slug($client->name) . '-' . now()->format('Y-m-d') . '.pdf';
 
@@ -132,7 +131,7 @@ class PdfController extends Controller
         $clients = Client::with([
             'companies.subsidiaries.phoneNumbers.equipment',
             'companies.phoneNumbers.equipment'
-        ])->get(); // Supprimé where('is_active', true) si la colonne n'existe pas
+        ])->get();
 
         // Calculer les statistiques globales
         $totalStats = [
@@ -153,7 +152,7 @@ class PdfController extends Controller
                 $this->countEquipmentAndExtensions($company, $clientEquipment, $clientExtensions);
             }
             
-            // Ajouter les propriétés calculées au client pour l'affichage (méthode sécurisée)
+            // Ajouter les propriétés calculées au client pour l'affichage
             $client->setAttribute('total_equipment_count', $clientEquipment);
             $client->setAttribute('total_extensions_count', $clientExtensions);
             

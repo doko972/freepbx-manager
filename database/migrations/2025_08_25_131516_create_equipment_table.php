@@ -15,15 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('phone_number_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('type'); // 'Téléphone fixe', 'Application mobile', etc.
+            $table->string('type');
             $table->string('extension')->nullable();
             $table->string('user_name')->nullable();
             $table->string('mac_address')->nullable();
-            $table->json('configuration')->nullable(); // JSON pour config avancée
+            $table->json('configuration')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             
-            // Index pour performance
             $table->index(['phone_number_id', 'is_active']);
             $table->index('extension');
             $table->index('type');
