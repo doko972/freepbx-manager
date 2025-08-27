@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Rapport Global - HR TELECOMS</title>
+    <title>Rapport Global - HRTélécoms</title>
     <style>
         html {
             margin: 0;

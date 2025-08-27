@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreePBX Manager Professional - HR TELECOMS</title>
+    <title>FreePBX Manager HRtélécoms</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/HR_LOGO.png') }}">
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
@@ -34,7 +35,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #1634cc 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -348,32 +349,26 @@
                             </span>
                         @endif
                     </p>
-                </div>
+                    <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn-auth btn-secondary-auth"
+                            style="background: rgba(220, 53, 69, 0.2); border-color: rgba(220, 53, 69, 0.5);">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Se déconnecter
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="btn-auth btn-primary-auth">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Se connecter
+                    </a>
 
-                <a href="{{ url('/dashboard') }}" class="btn-auth btn-primary-auth">
-                    <i class="fas fa-tachometer-alt"></i>
-                    Accéder au Dashboard
-                </a>
-
-                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                    @csrf
-                    <button type="submit" class="btn-auth btn-secondary-auth"
-                        style="background: rgba(220, 53, 69, 0.2); border-color: rgba(220, 53, 69, 0.5);">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Se déconnecter
-                    </button>
-                </form>
-            @else
-                <a href="{{ route('login') }}" class="btn-auth btn-primary-auth">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Se connecter
-                </a>
-
-                <a href="{{ route('register') }}" class="btn-auth btn-secondary-auth">
-                    <i class="fas fa-user-plus"></i>
-                    Créer un compte
-                </a>
-            @endauth
+                    <a href="{{ route('register') }}" class="btn-auth btn-secondary-auth">
+                        <i class="fas fa-user-plus"></i>
+                        Créer un compte
+                    </a>
+                @endauth
+            </div>
         </div>
     </div>
     <div class="hero-section">
@@ -386,10 +381,10 @@
 
         <div class="hero-content">
             <div class="logo-section">
-                <img src="{{ asset('images/logo.png') }}" alt="HR TELECOMS">
+                <img src="{{ asset('images/logo.png') }}" alt="HRTélécoms">
             </div>
 
-            <h1 class="hero-title">FreePBX Manager Professional</h1>
+            <h1 class="hero-title">FreePBX Manager</h1>
             <p class="hero-subtitle">Solutions téléphoniques professionnelles</p>
             <p class="hero-description">
                 Gérez vos infrastructures FreePBX avec simplicité et efficacité.
@@ -465,7 +460,7 @@
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
-                    <span>+33 (0)2 31 43 04 17</span>
+                    <span>+33 (0)2 31 43 50 11</span>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-clock"></i>
@@ -476,8 +471,8 @@
     </div>
 
     <div class="footer-info">
-        <p>© 2025 <a href="https://hrtelecoms.fr" target="_blank">HR TELECOMS</a> - Spécialiste des solutions
-            téléphoniques FreePBX</p>
+        <p>© 2025 <a href="https://hrtelecoms.fr" target="_blank">HRTélécoms</a> - Spécialiste des solutions
+            téléphoniques</p>
     </div>
 </body>
 
