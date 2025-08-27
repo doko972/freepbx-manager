@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ClientController;
@@ -13,19 +12,20 @@ use App\Http\Controllers\Api\EquipmentController;
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('api')->prefix('v1')->group(function () {
-    
+// Routes protégées par authentification
+Route::middleware(['auth'])->prefix('v1')->group(function () {
+   
     // Routes pour les clients
     Route::apiResource('clients', ClientController::class);
-    
+   
     // Routes pour les sociétés
     Route::apiResource('companies', CompanyController::class)
          ->except(['index', 'show']);
-    
+   
     // Routes pour les numéros de téléphone
     Route::apiResource('phone-numbers', PhoneNumberController::class)
          ->except(['index', 'show']);
-    
+   
     // Routes pour les équipements
     Route::apiResource('equipment', EquipmentController::class)
          ->except(['index', 'show']);

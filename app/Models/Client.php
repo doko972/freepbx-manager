@@ -10,11 +10,11 @@ class Client extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 
-        'email', 
-        'phone', 
-        'address', 
-        'description', 
+        'name',
+        'email',
+        'phone',
+        'address',
+        'description',
         'is_active'
     ];
 
@@ -66,5 +66,10 @@ class Client extends Model
         return $this->companies->sum(function ($company) {
             return $company->getAllPhoneNumbersCount();
         });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 
 class ClientController extends Controller
@@ -14,28 +16,47 @@ class ClientController extends Controller
      */
     public function index(): JsonResponse
     {
-        $clients = Client::with(['companies.phoneNumbers.equipment'])
-                        ->where('is_active', true)
-                        ->orderBy('name')
-                        ->get();
+        if (Auth::user()->isAdmin()) {
+            $clients = Client::with(['companies.phoneNumbers.equipment', 'companies.subsidiaries.phoneNumbers.equipment'])
+                ->get();
+        } else {
+            $clients = Auth::user()->clients()
+                ->with(['companies.phoneNumbers.equipment', 'companies.subsidiaries.phoneNumbers.equipment'])
+                ->get();
+        }
+
+        // Calculer les statistiques pour chaque client
+        $clients->each(function ($client) {
+            $client->companies_count = $client->companies->count();
+            $client->phone_numbers_count = $client->companies->sum(function ($company) {
+                return $company->phoneNumbers->count() + $company->subsidiaries->sum(function ($sub) {
+                    return $sub->phoneNumbers->count();
+                });
+            });
+
+            $equipmentCount = 0;
+            $extensionsCount = 0;
+
+            foreach ($client->companies as $company) {
+                foreach ($company->phoneNumbers as $phone) {
+                    $equipmentCount += $phone->equipment->count();
+                    $extensionsCount += $phone->equipment->whereNotNull('extension')->count();
+                }
+                foreach ($company->subsidiaries as $subsidiary) {
+                    foreach ($subsidiary->phoneNumbers as $phone) {
+                        $equipmentCount += $phone->equipment->count();
+                        $extensionsCount += $phone->equipment->whereNotNull('extension')->count();
+                    }
+                }
+            }
+
+            $client->equipment_count = $equipmentCount;
+            $client->extensions_count = $extensionsCount;
+        });
 
         return response()->json([
             'success' => true,
-            'clients' => $clients->map(function ($client) {
-                return [
-                    'id' => $client->id,
-                    'name' => $client->name,
-                    'email' => $client->email,
-                    'phone' => $client->phone,
-                    'address' => $client->address,
-                    'companies_count' => $client->companies->count(),
-                    'equipment_count' => $client->total_equipment_count,
-                    'extensions_count' => $client->total_extensions_count,
-                    'phone_numbers_count' => $client->total_phone_numbers_count,
-                    'created_at' => $client->created_at,
-                    'updated_at' => $client->updated_at,
-                ];
-            })
+            'clients' => $clients
         ]);
     }
 
@@ -69,7 +90,7 @@ class ClientController extends Controller
         $client = Client::with([
             'companies' => function ($query) {
                 $query->whereNull('parent_id')
-                      ->with(['subsidiaries.phoneNumbers.equipment', 'phoneNumbers.equipment']);
+                    ->with(['subsidiaries.phoneNumbers.equipment', 'phoneNumbers.equipment']);
             }
         ])->findOrFail($id);
 
@@ -94,7 +115,7 @@ class ClientController extends Controller
     public function update(Request $request, $id): JsonResponse
     {
         $client = Client::findOrFail($id);
-        
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'nullable|email|unique:clients,email,' . $client->id,

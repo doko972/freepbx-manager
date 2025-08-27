@@ -1,65 +1,81 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\PhoneNumber;
+use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PhoneNumberController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'company_id' => 'required|exists:companies,id',
+            'number' => 'required|string|max:20',
+            'type' => 'required|in:landline,mobile,toll-free,premium',
+            'description' => 'nullable|string|max:500'
+        ]);
+
+        // Vérifier que la société appartient à l'utilisateur
+        $company = $this->findCompanyWithPermission($validated['company_id']);
+
+        $phoneNumber = PhoneNumber::create($validated);
+
+        return response()->json([
+            'message' => 'Numéro de téléphone créé avec succès',
+            'phone_number' => $phoneNumber
+        ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(PhoneNumber $phoneNumber)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'number' => 'required|string|max:20',
+            'type' => 'required|in:landline,mobile,toll-free,premium',
+            'description' => 'nullable|string|max:500'
+        ]);
+
+        $phoneNumber = $this->findPhoneNumberWithPermission($id);
+        $phoneNumber->update($validated);
+
+        return response()->json([
+            'message' => 'Numéro mis à jour avec succès',
+            'phone_number' => $phoneNumber
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PhoneNumber $phoneNumber)
+    public function destroy($id)
     {
-        //
+        $phoneNumber = $this->findPhoneNumberWithPermission($id);
+        $phoneNumber->delete();
+
+        return response()->json([
+            'message' => 'Numéro supprimé avec succès'
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, PhoneNumber $phoneNumber)
+    private function findPhoneNumberWithPermission($id)
     {
-        //
+        $phoneNumber = PhoneNumber::with('company.client')->findOrFail($id);
+        
+        if (!Auth::user()->isAdmin() && $phoneNumber->company->client->user_id !== Auth::id()) {
+            abort(403, 'Accès non autorisé à ce numéro');
+        }
+
+        return $phoneNumber;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(PhoneNumber $phoneNumber)
+    private function findCompanyWithPermission($companyId)
     {
-        //
+        $company = Company::with('client')->findOrFail($companyId);
+        
+        if (!Auth::user()->isAdmin() && $company->client->user_id !== Auth::id()) {
+            abort(403, 'Accès non autorisé à cette société');
+        }
+
+        return $company;
     }
 }

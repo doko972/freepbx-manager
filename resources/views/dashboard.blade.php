@@ -9,6 +9,66 @@
     <div id="app">
         <div id="alerts-container"></div>
 
+        <!-- Section Administration (visible seulement pour les admins) -->
+        @if (Auth::user()->role === 'admin')
+            <div class="admin-section" style="margin-bottom: 30px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2
+                        style="color: var(--dark-color); font-family: 'Poppins', sans-serif; font-size: 1.6em; font-weight: 600; margin: 0;">
+                        <i class="fas fa-tools"></i> Administration
+                    </h2>
+                </div>
+
+                <div class="admin-tools"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                    <a href="{{ route('admin.users') }}" class="admin-tool-card" style="text-decoration: none;">
+                        <div class="tool-icon" style="color: #e74c3c;">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h4>Gestion des Utilisateurs</h4>
+                            <p>Administrer les comptes et permissions</p>
+                            <small>{{ \App\Models\User::count() }} utilisateurs</small>
+                        </div>
+                        <div class="tool-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </a>
+
+                    {{-- <a href="{{ route('admin.dashboard') }}" class="admin-tool-card" style="text-decoration: none;">
+                        <div class="tool-icon" style="color: #3498db;">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h4>Dashboard Admin</h4>
+                            <p>Statistiques et aperçu général</p>
+                            <small>Rapports et métriques</small>
+                        </div>
+                        <div class="tool-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </a> --}}
+
+                    {{-- <div class="admin-tool-card disabled" style="opacity: 0.6; pointer-events: none;">
+                        <div class="tool-icon" style="color: #95a5a6;">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h4>Configuration</h4>
+                            <p>Paramètres système</p>
+                            <small>Bientôt disponible</small>
+                        </div>
+                        <div class="tool-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div> --}}
+                </div>
+
+                <!-- Séparateur -->
+                <div style="border-top: 1px solid #dee2e6; margin: 25px 0;"></div>
+            </div>
+        @endif
+
         <div class="action-buttons" style="margin-bottom: 30px; display: flex; gap: 15px; flex-wrap: wrap;">
             <button class="btn btn-success" onclick="addClient()">
                 <i class="fas fa-plus"></i> Nouveau Client
@@ -111,6 +171,10 @@
     </div>
 @endsection
 @section('scripts')
+    <script>
+        console.log('User connecté :', '{{ Auth::user()->name }}');
+        console.log('User ID :', '{{ Auth::id() }}');
+    </script>
     <script>
         axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute(
             'content');
@@ -659,10 +723,10 @@
             </div>
         </div>
         ${hasChildren ? `
-                    <div class="node-children ${!isExpanded ? 'hidden' : ''}">
-                        ${node.children.map(renderNode).join('')}
-                    </div>
-                ` : ''}
+                        <div class="node-children ${!isExpanded ? 'hidden' : ''}">
+                            ${node.children.map(renderNode).join('')}
+                        </div>
+                    ` : ''}
     </div>
 `;
         }
@@ -902,10 +966,10 @@
             <label><i class="fas fa-desktop"></i> Type d'équipement</label>
             <div class="equipment-types">
                 ${equipmentTypes.map(eq => `
-                                                        <div class="equipment-type-btn" onclick="selectEquipmentType('${eq.name}')">
-                                                            <i class="${eq.faIcon}"></i> ${eq.name}
-                                                        </div>
-                                                    `).join('')}
+                                                            <div class="equipment-type-btn" onclick="selectEquipmentType('${eq.name}')">
+                                                                <i class="${eq.faIcon}"></i> ${eq.name}
+                                                            </div>
+                                                        `).join('')}
             </div>
             <input type="text" id="customEquipment" placeholder="Ou équipement personnalisé...">
         </div>
@@ -1182,11 +1246,11 @@
             <label><i class="fas fa-desktop"></i> Type d'équipement</label>
             <div class="equipment-types">
                 ${equipmentTypes.map(eq => `
-                                        <div class="equipment-type-btn ${node.equipmentType === eq.name ? 'selected' : ''}" 
-                                             onclick="selectEquipmentType('${eq.name}')">
-                                            <i class="${eq.faIcon}"></i> ${eq.name}
-                                        </div>
-                                    `).join('')}
+                                            <div class="equipment-type-btn ${node.equipmentType === eq.name ? 'selected' : ''}" 
+                                                 onclick="selectEquipmentType('${eq.name}')">
+                                                <i class="${eq.faIcon}"></i> ${eq.name}
+                                            </div>
+                                        `).join('')}
             </div>
             <input type="text" id="customEquipment" placeholder="Ou équipement personnalisé..." 
                    value="${!equipmentTypes.find(eq => eq.name === node.equipmentType) ? node.equipmentType : ''}">
