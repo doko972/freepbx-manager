@@ -1,6 +1,6 @@
 <x-guest-layout>
     @section('title', 'Créer un compte')
-    
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -9,17 +9,8 @@
             <label for="name">
                 <i class="fas fa-user"></i> Nom complet
             </label>
-            <input 
-                id="name" 
-                class="form-input @error('name') error @enderror" 
-                type="text" 
-                name="name" 
-                value="{{ old('name') }}" 
-                required 
-                autofocus 
-                autocomplete="name"
-                placeholder="Jean Dupont"
-            >
+            <input id="name" class="form-input @error('name') error @enderror" type="text" name="name"
+                value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Jean Dupont">
             @error('name')
                 <div class="error-message">
                     <i class="fas fa-exclamation-circle"></i> {{ $message }}
@@ -32,16 +23,8 @@
             <label for="email">
                 <i class="fas fa-envelope"></i> Adresse email
             </label>
-            <input 
-                id="email" 
-                class="form-input @error('email') error @enderror" 
-                type="email" 
-                name="email" 
-                value="{{ old('email') }}" 
-                required 
-                autocomplete="username"
-                placeholder="jean.dupont@entreprise.fr"
-            >
+            <input id="email" class="form-input @error('email') error @enderror" type="email" name="email"
+                value="{{ old('email') }}" required autocomplete="username" placeholder="jean.dupont@entreprise.fr">
             @error('email')
                 <div class="error-message">
                     <i class="fas fa-exclamation-circle"></i> {{ $message }}
@@ -54,12 +37,7 @@
             <label for="role">
                 <i class="fas fa-user-tag"></i> Type de compte
             </label>
-            <select 
-                id="role" 
-                name="role" 
-                class="form-input @error('role') error @enderror"
-                required
-            >
+            <select id="role" name="role" class="form-input @error('role') error @enderror" required>
                 <option value="">Sélectionnez votre profil...</option>
                 <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>
                     Utilisateur - Gestion de mes infrastructures
@@ -83,15 +61,8 @@
             <label for="password">
                 <i class="fas fa-lock"></i> Mot de passe
             </label>
-            <input 
-                id="password" 
-                class="form-input @error('password') error @enderror"
-                type="password"
-                name="password"
-                required 
-                autocomplete="new-password"
-                placeholder="Minimum 8 caractères"
-            >
+            <input id="password" class="form-input @error('password') error @enderror" type="password" name="password"
+                required autocomplete="new-password" placeholder="Minimum 8 caractères">
             @error('password')
                 <div class="error-message">
                     <i class="fas fa-exclamation-circle"></i> {{ $message }}
@@ -104,15 +75,9 @@
             <label for="password_confirmation">
                 <i class="fas fa-lock"></i> Confirmer le mot de passe
             </label>
-            <input 
-                id="password_confirmation" 
-                class="form-input @error('password_confirmation') error @enderror"
-                type="password"
-                name="password_confirmation"
-                required 
-                autocomplete="new-password"
-                placeholder="Répétez votre mot de passe"
-            >
+            <input id="password_confirmation" class="form-input @error('password_confirmation') error @enderror"
+                type="password" name="password_confirmation" required autocomplete="new-password"
+                placeholder="Répétez votre mot de passe">
             @error('password_confirmation')
                 <div class="error-message">
                     <i class="fas fa-exclamation-circle"></i> {{ $message }}
@@ -122,16 +87,17 @@
 
         <!-- Terms and Conditions -->
         <div class="remember-me" style="margin-bottom: 25px;">
-            <input 
-                id="terms" 
-                type="checkbox" 
-                name="terms"
-                required
-            >
+            <input id="terms" type="checkbox" name="terms" required @error('terms') class="error" @enderror>
             <label for="terms" style="font-size: 0.9em;">
-                J'accepte les <a href="#" class="btn-link">conditions d'utilisation</a> et la 
-                <a href="#" class="btn-link">politique de confidentialité</a>
+                J'accepte les <a href="{{ route('terms') }}" target="_blank" class="btn-link">conditions
+                    d'utilisation</a> et la
+                <a href="{{ route('privacy') }}" target="_blank" class="btn-link">politique de confidentialité</a>
             </label>
+            @error('terms')
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i> {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <div class="form-group">
@@ -147,18 +113,17 @@
             </a>
         </div>
     </form>
-
     <x-slot name="footer">
-        <div style="background: #fff3cd; color: #856404; padding: 12px; border-radius: 6px; border-left: 4px solid #ffc107;">
-            <i class="fas fa-exclamation-triangle"></i> 
-            <strong>Important :</strong> Les comptes administrateur sont soumis à validation par l'équipe HR TELECOMS.
-        </div>
-        
+        <p style="color: #6c757d; margin: 0; font-size: 0.9em;">
+            <i class="fas fa-shield-alt"></i>
+            Connexion sécurisée SSL
+        </p>
+
         <div class="divider">
             <span>Besoin d'aide ?</span>
         </div>
-        
-        <p style="margin: 0;">
+
+        <p style="margin: 0; margin-bottom: 64px;">
             <a href="mailto:supporttechnique@hrtelecoms.fr" class="btn-link">
                 <i class="fas fa-headset"></i> Contacter le support technique
             </a>
