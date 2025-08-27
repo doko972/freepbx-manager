@@ -45,20 +45,31 @@
                             <i class="fas fa-user"></i>
                         </div>
                         <div class="user-info">
-                            <span>{{ Auth::user()->name }}</span>
-                            @if (Auth::user()->role === 'admin')
-                                <small style="color: #ffc107;"><i class="fas fa-crown"></i> Administrateur</small>
+                            @if(Auth::check())
+                                <span>{{ Auth::user()->name }}</span>
+                                @if(Auth::user()->role === 'admin')
+                                    <small style="color: #ffc107;"><i class="fas fa-crown"></i> Administrateur</small>
+                                @else
+                                    <small>Utilisateur</small>
+                                @endif
                             @else
-                                <small>Utilisateur</small>
+                                <span>Visiteur</span>
+                                <small>Non connecté</small>
                             @endif
                         </div>
                         <div class="user-menu">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-sign-out-alt"></i> Déconnexion
-                                </button>
-                            </form>
+                            @if(Auth::check())
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                    </button>
+                                </form>
+                            @else
+                                <a href="{{ route('login') }}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-sign-in-alt"></i> Connexion
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -127,6 +138,8 @@
                 <div>
                     © 2025 HRTélécoms. Tous droits réservés.
                 </div>
+            </div>
+        </div>
     </footer>
 
     @yield('scripts')
